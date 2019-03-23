@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "792274869711",
+    "firebase_url": "https://securityprojectofficial-ba3b0.firebaseio.com",
+    "project_id": "securityprojectofficial-ba3b0",
+    "storage_bucket": "securityprojectofficial-ba3b0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:792274869711:android:8faec9b51a6156fa",
+        "android_client_info": {
+          "package_name": "com.example.securityprojectofficial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "792274869711-5uvltca1hrb4fpduvaukndbbeaph806c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.securityprojectofficial",
+            "certificate_hash": "444e54bfba77593fa05ff9477e22a22dd3eab30b"
+          }
+        },
+        {
+          "client_id": "792274869711-vf2bu8a8krdln7h46qtenmk6m8onp39p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlfwey2X4lZ4ej5JeBIfLpzIrB52KGsIw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "792274869711-vf2bu8a8krdln7h46qtenmk6m8onp39p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
