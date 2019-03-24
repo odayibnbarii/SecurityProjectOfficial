@@ -97,7 +97,7 @@ public class Register extends AppCompatActivity {
                             progressDialog.dismiss();
                             Toast.makeText(Register.this, "Authentication success.",
                                     Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Register.this, Blind.class);
+                            Intent intent = new Intent(Register.this, LoginActivity.class);
                             startActivity(intent);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

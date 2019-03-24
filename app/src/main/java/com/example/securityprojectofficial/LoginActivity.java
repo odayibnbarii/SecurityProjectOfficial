@@ -31,31 +31,32 @@ public class LoginActivity extends AppCompatActivity {
     public void registerButton(View v) {
         Bundle bundle = getIntent().getExtras();
         String userType = bundle.getString("userType");
-        bundle.putString("userType", userType);
+        Bundle b = new Bundle();
+        b.putString("userType", userType);
         Intent intent = new Intent(LoginActivity.this, Register.class);
-        intent.putExtras(bundle);
+        intent.putExtras(b);
         startActivity(intent);
 
     }
 
     public void loginButton(View v) {
 
-        final EditText userEmail = (EditText) findViewById(R.id.email);
+        final EditText pNum = (EditText) findViewById(R.id.email);
         final EditText password = (EditText) findViewById(R.id.password);
-        final String sUserEmail = userEmail.getText().toString();
+        final String sPNum = pNum.getText().toString();
         final String sPassword = password.getText().toString();
-        if(sPassword.length() > 0 && userEmail.length() > 0) {
-            userEmail.setError(null);
+        if(sPassword.length() > 0 && pNum.length() > 0) {
+            pNum.setError(null);
             password.setError(null);
             final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
             progressDialog.setTitle("logging in ...");
             progressDialog.setMessage("Please wait.");
-            if (sUserEmail.isEmpty())
-                userEmail.setError("username is empty!");
+            if (sPNum.isEmpty())
+                pNum.setError("Phone Number is empty!");
             if (sPassword.isEmpty())
                 password.setError("password is empty!");
 
-            mAuth.signInWithEmailAndPassword(sUserEmail, sPassword)
+            mAuth.signInWithEmailAndPassword(sPNum, sPassword)
                     .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {

@@ -44,11 +44,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void friendButton(View view){
-        Intent intent = new Intent();
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("userType", "friendUser");
         intent.putExtras(bundle);
-        intent = new Intent(MainActivity.this, LoginActivity.class);
 
         startActivity(intent);
     }
