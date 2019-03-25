@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.securityprojectofficial.users.BlindUser;
+import com.example.securityprojectofficial.users.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -17,20 +19,30 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth ;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase realTimeDB;
+    private String userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
-    }
-    public void registerButton(View v) {
         Bundle bundle = getIntent().getExtras();
-        String userType = bundle.getString("userType");
+        userType = bundle.getString("userType");
+    }
+
+    public void registerButton(View v) {
         Bundle b = new Bundle();
         b.putString("userType", userType);
         Intent intent = new Intent(LoginActivity.this, Register.class);
@@ -41,73 +53,73 @@ public class LoginActivity extends AppCompatActivity {
 
     public void loginButton(View v) {
 
-        final EditText pNum = (EditText) findViewById(R.id.email);
+        final EditText phone = (EditText) findViewById(R.id.phone);
         final EditText password = (EditText) findViewById(R.id.password);
-        final String sPNum = pNum.getText().toString();
+        final String sPhone = phone.getText().toString();
         final String sPassword = password.getText().toString();
-        if(sPassword.length() > 0 && pNum.length() > 0) {
-            pNum.setError(null);
+
+        if (sPassword.length() > 0 && phone.length() > 0) {
+            phone.setError(null);
             password.setError(null);
             final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
             progressDialog.setTitle("logging in ...");
             progressDialog.setMessage("Please wait.");
-            if (sPNum.isEmpty())
-                pNum.setError("Phone Number is empty!");
-            if (sPassword.isEmpty())
-                password.setError("password is empty!");
-
-            mAuth.signInWithEmailAndPassword(sPNum, sPassword)
-                    .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("jj", "signInWithEmail:success");
-                                Toast.makeText(LoginActivity.this, "login success.",
-                                        Toast.LENGTH_SHORT).show();
-                                progressDialog.dismiss();
-                                login();
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                try {
-                                    throw task.getException();
-                                } catch (FirebaseAuthWeakPasswordException e) {
-                                    progressDialog.dismiss();
-                                    password.setError("Invalid password!");
-                                    password.requestFocus();
-                                } catch (FirebaseAuthInvalidCredentialsException e) {
-                                    progressDialog.dismiss();
-                                    password.setError("Invalid password!");
-                                    password.requestFocus();
-                                } catch (FirebaseAuthUserCollisionException e) {
-                                    progressDialog.dismiss();
-                                    Log.e("EMAIL", e.getMessage());
-                                } catch (Exception e) {
-                                    progressDialog.dismiss();
-                                    Log.e("", e.getMessage());
-                                }
-
-
-                            }
-
-                            // ...
+            if(sPhone.isEmpty()){
+                phone.setError("Email field is empty!");
+                phone.requestFocus();
+            }
+            if(sPassword.isEmpty()){
+                password.setError("Password field is empty!");
+                password.requestFocus();
+            }
+            realTimeDB = FirebaseDatabase.getInstance();
+            DatabaseReference ref = realTimeDB.getReference().child(userType).child(sPhone);
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(!dataSnapshot.exists()){
+                        Toast.makeText(LoginActivity.this, "Incorrect email"
+                                , Toast.LENGTH_SHORT).show();
+                    }else{
+                        User tmp = dataSnapshot.getValue(User.class);
+                        User usr;
+                        String type = tmp.getUsrType();
+                        if(type.equals("blindUser")){
+                            usr = User.blind(tmp);
+                        }else{
+                            usr = User.friend(tmp);
                         }
-                    });
+                        if(!usr.getPassword().equals(sPassword)){
+                            Toast.makeText(LoginActivity.this, "Incorrect password"
+                                    , Toast.LENGTH_SHORT).show();
+                        }else{
+                            login();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(LoginActivity.this, "network error"
+                            ,Toast.LENGTH_SHORT).show();
+                }
+            });
+
 
         }
-        else{
-            //Error message, the fields is empty
-            Toast.makeText(LoginActivity.this, "one or more fields are empty!",
-                    Toast.LENGTH_SHORT).show();
-
-        }
-
-
     }
 
 
+
+
+
     private void login() {
-        Intent intent = new Intent(LoginActivity.this, Blind.class);
+        Intent intent;
+        if(userType.equals("blindUser")){
+            intent = new Intent(LoginActivity.this, Blind.class);
+        }else{
+            intent = new Intent(LoginActivity.this, FriendActivity.class);
+        }
         startActivity(intent);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
