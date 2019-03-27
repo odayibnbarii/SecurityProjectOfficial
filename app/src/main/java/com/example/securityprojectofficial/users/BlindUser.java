@@ -1,5 +1,7 @@
 package com.example.securityprojectofficial.users;
 
+import java.util.List;
+
 public class BlindUser extends User{
     public BlindUser(){
 
@@ -9,9 +11,10 @@ public class BlindUser extends User{
     }
 
     public BlindUser(User usr){
-        BlindUser blindUser = new BlindUser(usr.phone, usr.password, usr.fName, usr.lName, usr.userType);
-
+        //BlindUser blindUser = new BlindUser(usr.phone, usr.password, usr.fName, usr.lName, usr.userType);
+        super(usr.phone, usr.password, usr.fName, usr.lName, usr.userType);
     }
+
 
     public String getUsrType(){
         return userType;

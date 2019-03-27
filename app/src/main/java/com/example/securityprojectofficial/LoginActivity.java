@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.securityprojectofficial.Security.CipherDatabase;
 import com.example.securityprojectofficial.users.BlindUser;
 import com.example.securityprojectofficial.users.FriendUser;
 import com.example.securityprojectofficial.users.User;
@@ -40,7 +41,7 @@ import java.util.concurrent.TimeUnit;
 public class LoginActivity extends AppCompatActivity {
     private FirebaseDatabase realTimeDB;
     private String userType;
-
+    private CipherDatabase CD = new CipherDatabase();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,12 +94,13 @@ public class LoginActivity extends AppCompatActivity {
                     }else{
                         User usr;
                         if(userType.equals("friendUser")){
-                            usr = new FriendUser((User)dataSnapshot.getValue(User.class));
+                            usr = CD.decryptUser(dataSnapshot.getValue(User.class));
                         }else{
-                            usr = new BlindUser((User)dataSnapshot.getValue(User.class));
+                            usr = CD.decryptUser(dataSnapshot.getValue(User.class));
                         }
                         System.out.println("User: " + usr + usr.getPassword() + usr.getUsrType());
-                        if(((User)dataSnapshot.getValue(User.class)).getPassword().equals(sPassword)){
+
+                        if(usr.getPassword().equals(sPassword)) {
                             login(usr);
                         }else{
                             Toast.makeText(LoginActivity.this, "Incorrect password"

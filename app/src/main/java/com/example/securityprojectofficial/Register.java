@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.securityprojectofficial.Security.CipherDatabase;
 import com.example.securityprojectofficial.users.BlindUser;
 import com.example.securityprojectofficial.users.FriendUser;
 import com.example.securityprojectofficial.users.User;
@@ -44,6 +45,7 @@ public class Register extends AppCompatActivity {
     private String userType;
     private FirebaseDatabase rlDb;
     private FirebaseAuth mAuth;
+    private CipherDatabase CD = new CipherDatabase();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,9 +108,9 @@ public class Register extends AppCompatActivity {
                         } else {
                             User usr;
                             if (userType.equals("blindUser")) {
-                                usr = new BlindUser(sPhone, SPass, sFName, sLName, userType);
+                                usr = CD.encryptUser(new BlindUser(sPhone, SPass, sFName, sLName, userType));
                             } else {
-                                usr = new FriendUser(sPhone, SPass, sFName, sLName, userType);
+                                usr = CD.encryptUser(new FriendUser(sPhone, SPass, sFName, sLName, userType));
                             }
                             DatabaseReference ref = rlDb.getReference();
                             ref.child(userType).child(sPhone).setValue(usr);

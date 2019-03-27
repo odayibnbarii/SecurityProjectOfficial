@@ -31,6 +31,14 @@
           }
         },
         {
+          "client_id": "792274869711-horb0ilsn0129i5hr9dgs58hd1s77rhq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.securityprojectofficial",
+            "certificate_hash": "d15a442245400eb77737c387d360dab009811cf3"
+          }
+        },
+        {
           "client_id": "792274869711-vf2bu8a8krdln7h46qtenmk6m8onp39p.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -1,5 +1,7 @@
 package com.example.securityprojectofficial.users;
 
+import java.util.List;
+
 public class FriendUser extends User {
     public FriendUser(){
 
@@ -10,8 +12,10 @@ public class FriendUser extends User {
     }
 
     public FriendUser(User usr){
-        FriendUser user = new FriendUser(usr.phone, usr.password, usr.fName, usr.lName, usr.userType);
+       // FriendUser user = new FriendUser(usr.phone, usr.password, usr.fName, usr.lName, usr.userType);
+        super(usr.phone, usr.password, usr.fName, usr.lName, usr.userType);
     }
+
 
     public String getUsrType(){
         return userType;
