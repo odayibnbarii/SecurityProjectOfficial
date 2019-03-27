@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +27,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(SaveSharedPreference.getUserName(MainActivity.this).length() == 0){
+            // call Login Activity
+        }
+        else
+        {
+            Intent in = new Intent(MainActivity.this, FriendActivity.class);
+            startActivity(in);
+        }
+
+    }
+    @Override
+    protected void onStart(){
+        super.onStart();
     }
     public void blindButton(View view){
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -42,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(intent);
     }
+
 
 }
 

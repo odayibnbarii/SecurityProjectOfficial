@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
             android:onClick="blindButton"
+            android:phoneNumber="false"
             android:text="I'am Blind" />
 
         <Button

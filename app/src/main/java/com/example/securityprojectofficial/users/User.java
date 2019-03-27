@@ -1,6 +1,6 @@
 package com.example.securityprojectofficial.users;
 
-public abstract class User {
+public class User {
     protected String phone;
     protected String password;
     protected String fName;
@@ -23,15 +23,8 @@ public abstract class User {
     public String getPassword(){
         return password;
     }
-    public static BlindUser blind(User usr){
-        BlindUser blindUser = new BlindUser(usr.phone, usr.password, usr.fName, usr.lName, usr.userType);
-        return blindUser;
 
+    public String getPhone() {
+        return phone;
     }
-    public static FriendUser friend(User usr){
-        FriendUser user = new FriendUser(usr.phone, usr.password, usr.fName, usr.lName, usr.userType);
-        return user;
-
-    }
-
 }
