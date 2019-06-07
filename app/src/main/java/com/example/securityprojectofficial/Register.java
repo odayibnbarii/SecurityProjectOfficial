@@ -46,6 +46,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Register extends AppCompatActivity {
     private String userType;
+    private String phonee;
     private FirebaseDatabase rlDb;
     private FirebaseAuth mAuth;
     private CipherDatabase CD = new CipherDatabase();
@@ -67,6 +68,7 @@ public class Register extends AppCompatActivity {
         final String sFName = fName.getText().toString();
         final String sLName = lName.getText().toString();
         final String sPhone = phone.getText().toString();
+        phonee=sPhone;
         final String SPass = pass.getText().toString();
         String SRePass = rePass.getText().toString();
         fName.setError(null);
@@ -148,6 +150,9 @@ public class Register extends AppCompatActivity {
         }else{
             intent = new Intent(Register.this, FriendActivity.class);
         }
+        Bundle b = new Bundle();
+        b.putString("phone", phonee);
+        intent.putExtras(b);
         startActivity(intent);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

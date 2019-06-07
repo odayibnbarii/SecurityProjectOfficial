@@ -620,8 +620,10 @@ public class NaviActivity extends AppCompatActivity implements GoogleApiClient.C
                         Friends f =dataSnapshot.getValue(Friends.class);
                         request newR=new request(phone,addressOutput,dateFormat.format(date));
                         DatabaseReference refe = tmpDb.getReference();
-                        refe.child("request").child(f.friends.get(0)).setValue(newR);
-                        refe.child("request").child(f.friends.get(1)).setValue(newR);
+                        if(f.friends.size()>=1)
+                            refe.child("request").child(f.friends.get(0)).setValue(newR);
+                        if(f.friends.size()>=2)
+                            refe.child("request").child(f.friends.get(1)).setValue(newR);
 
 
 

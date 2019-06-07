@@ -53,7 +53,6 @@ public class FriendActivity extends AppCompatActivity {
     }
     public void AddFriend(){
         final String username = frUser.getText().toString();
-        frUser.setError(NULL);
         final FirebaseDatabase db = FirebaseDatabase.getInstance();
         final DatabaseReference ref = db.getReference().child("blindUser").child(username);
         ref.addValueEventListener(new ValueEventListener() {
