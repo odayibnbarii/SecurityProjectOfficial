@@ -1,4 +1,5 @@
 package com.example.securityprojectofficial.Security;
+import com.example.securityprojectofficial.request;
 import com.example.securityprojectofficial.users.BlindUser;
 import com.example.securityprojectofficial.users.FriendUser;
 import com.example.securityprojectofficial.users.User;
@@ -63,6 +64,28 @@ public class CipherDatabase {
         }
     }
 
+    public String encryptPhone(String phone){
+        return encrypt(phone);
+    }
+
+    public String decryptPhone(String cipher){
+        return decrypt(cipher);
+    }
+
+    public request encryptRequest(request req ){
+        String name = encrypt(req.name);
+        String location = encrypt(req.location);
+        String date  = encrypt(req.date);
+        return new request(name,location,date);
+    }
+
+    public request decryptRequest(request req){
+        String name = decrypt(req.name);
+        String location = decrypt(req.location);
+        String date = decrypt(req.location);
+
+        return new request(name,location,date);
+    }
     /**
      * Convert a String text to binary value char by char.
      * @param plaintext : String to convert

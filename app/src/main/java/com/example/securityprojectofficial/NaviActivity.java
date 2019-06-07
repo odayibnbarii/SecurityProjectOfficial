@@ -42,6 +42,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.securityprojectofficial.Security.CipherDatabase;
 import com.example.securityprojectofficial.users.Friends;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -92,7 +93,7 @@ public class NaviActivity extends AppCompatActivity implements GoogleApiClient.C
     private float distance;
     private boolean canRun;
     private TextView liveDistance;
-
+    private CipherDatabase CD = new CipherDatabase();
 
     /*location*/
     private FusedLocationProviderClient fusedLocationClient;
@@ -619,11 +620,12 @@ public class NaviActivity extends AppCompatActivity implements GoogleApiClient.C
                         Date date = new Date();
                         Friends f =dataSnapshot.getValue(Friends.class);
                         request newR=new request(phone,addressOutput,dateFormat.format(date));
+                        newR = CD.encryptRequest(newR);
                         DatabaseReference refe = tmpDb.getReference();
                         if(f.friends.size()>=1)
-                            refe.child("request").child(f.friends.get(0)).setValue(newR);
+                            refe.child("request").child(CD.decryptPhone(f.friends.get(0))).setValue(newR);
                         if(f.friends.size()>=2)
-                            refe.child("request").child(f.friends.get(1)).setValue(newR);
+                            refe.child("request").child(CD.decryptPhone(f.friends.get(1))).setValue(newR);
 
 
 

@@ -82,7 +82,7 @@ public class FriendActivity extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
                                 }
                                 else {
-                                    f.addFriend(user.getPhone());
+                                    f.addFriend(CD.encryptPhone(user.getPhone()));
                                     DatabaseReference refe = tmpDb.getReference();
                                     refe.child("friends").child(username).setValue(f);
 
@@ -90,7 +90,7 @@ public class FriendActivity extends AppCompatActivity {
                             } else {
 
                                 Friends f = new Friends();
-                                f.addFriend(user.getPhone());
+                                f.addFriend(CD.encryptPhone(user.getPhone()));
                                 DatabaseReference refe = tmpDb.getReference();
                                 refe.child("friends").child(username).setValue(f);
                             }
@@ -159,6 +159,7 @@ public class FriendActivity extends AppCompatActivity {
                         }
                     }
                     request r = dataSnapshot.getValue(request.class);
+                    r = CD.decryptRequest(r);
                     TextView f = (TextView) findViewById(R.id.fText);
                     TextView l = (TextView) findViewById(R.id.lText);
                     TextView d = (TextView) findViewById(R.id.dText);
