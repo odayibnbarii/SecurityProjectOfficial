@@ -1,8 +1,12 @@
 package com.example.securityprojectofficial.users;
 
+import com.example.securityprojectofficial.Security.CipherDatabase;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.List;
 
 public class FriendUser extends User {
+
     public FriendUser(){
 
     }

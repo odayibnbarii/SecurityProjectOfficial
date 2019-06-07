@@ -6,43 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/formBeg"
+    <Button
+        android:id="@+id/friendBut"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="300dp"
-        android:layout_marginEnd="20dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/corner"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:onClick="friendButton"
+        android:text="I'am Friend"
+        android:textColor="#0E0618"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.645"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toBottomOf="@+id/blindBut" />
 
-        <Button
-            android:id="@+id/blindBut"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:onClick="blindButton"
-            android:phoneNumber="false"
-            android:text="I'am Blind" />
+    <Button
+        android:id="@+id/blindBut"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="259dp"
+        android:background="@drawable/corner"
+        android:fontFamily="sans-serif-black"
+        android:onClick="blindButton"
+        android:phoneNumber="false"
+        android:text="I'am Blind"
+        android:textColor="#0E0618"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/friendBut"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="0dp"
-            android:fontFamily="sans-serif-black"
-            android:gravity="center"
-            android:onClick="friendButton"
-            android:text="I'am Friend" />
-
-    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

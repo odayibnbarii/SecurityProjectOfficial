@@ -1,7 +1,8 @@
 package com.example.securityprojectofficial;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
 
 public class UserActivity extends AppCompatActivity {
 
