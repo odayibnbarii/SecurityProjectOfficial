@@ -150,8 +150,10 @@ public class Register extends AppCompatActivity {
         }else{
             intent = new Intent(Register.this, FriendActivity.class);
         }
+
         Bundle b = new Bundle();
         b.putString("phone", phonee);
+        b.putString("userType", userType);
         intent.putExtras(b);
         startActivity(intent);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
